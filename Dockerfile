@@ -1,6 +1,8 @@
 # ── Build stage ────────────────────────────────────────────────────────────────
 FROM node:20-alpine AS builder
 
+RUN apk add --no-cache git python3 make g++
+
 WORKDIR /build
 
 COPY app/package.json ./
