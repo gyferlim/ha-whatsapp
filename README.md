@@ -9,9 +9,7 @@ Runs the same Baileys Node.js engine **without needing Home Assistant**.
 
 ```bash
 # 1. Clone / copy this repo
-git clone https://github.com/gyferlim/ha-whatsapp
-#then:
-cd whatsapp-docker
+git clone https://github.com/gyferlim/ha-whatsapp && cd ha-whatsapp
 
 # 2. Edit docker-compose.yml — at minimum set your AUTH_TOKEN
 #    Then build & start:
