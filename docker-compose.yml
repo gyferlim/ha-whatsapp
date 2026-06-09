@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  whatsapp-bridge:
+    build: .
+    container_name: whatsapp-bridge
+    restart: unless-stopped
+    ports:
+      - "8066:8066"
+    volumes:
+      - whatsapp_session:/data/session
+    environment:
+      # ── Required ────────────────────────────────────────────────────────────
+      # Token needed for every API call (header: X-Auth-Token)
+      AUTH_TOKEN: "change_me_strong_token"
+
+      # ── Webhook (optional) ──────────────────────────────────────────────────
+      # Forward incoming messages to your n8n / Node-RED / any HTTP endpoint
+      WEBHOOK_ENABLED: "false"
+      WEBHOOK_URL: "http://n8n:5678/webhook/whatsapp"
+      WEBHOOK_TOKEN: "change_me_webhook_secret"
+
+      # ── Tuning ──────────────────────────────────────────────────────────────
+      LOG_LEVEL: "info"          # trace | debug | info | warn | error
+      MARK_ONLINE: "false"       # show as online when connected
+      KEEP_ALIVE_INTERVAL: "30000"
+      RESET_SESSION: "false"     # set true ONCE to wipe & re-pair
+
+      # Port inside container (rarely need to change)
+      PORT: "8066"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8066/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  whatsapp_session:
