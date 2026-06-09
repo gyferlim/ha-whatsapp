@@ -1,12 +1,12 @@
 services:
-  whatsapp-bridge:
+  ha-whatsapp:
     build: .
-    container_name: whatsapp-bridge
+    container_name: ha-whatsapp
     restart: unless-stopped
     ports:
       - "8066:8066"
     volumes:
-      - whatsapp_session:/data/session
+      - ha-whatsapp_session:/data/session
     environment:
       # ── Required ────────────────────────────────────────────────────────────
       # Token needed for every API call (header: X-Auth-Token)
